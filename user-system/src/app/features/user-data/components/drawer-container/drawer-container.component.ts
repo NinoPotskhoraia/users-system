@@ -19,7 +19,7 @@ constructor(private drawerService:ToolbarService){
 
   ngAfterViewInit():void {
     this.drawerService.setDrawer(this.drawer);
-    // this.drawer.open();
+
 }
 
 

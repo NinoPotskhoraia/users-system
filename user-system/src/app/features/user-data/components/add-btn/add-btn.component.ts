@@ -9,12 +9,12 @@ import { ToolbarService } from '../../services/toolbar.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddBtnComponent {
-  // @Output() addUser = new EventEmitter();
+ 
 
   constructor(private toolbarService:ToolbarService){} 
 
   public onAddClick(){
-      // this.addUser.emit();
+  
       this.toolbarService.toggleDrawer();
   }
 }

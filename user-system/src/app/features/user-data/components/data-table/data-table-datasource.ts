@@ -6,7 +6,7 @@ import { Observable, of as observableOf, merge } from 'rxjs';
 
 // TODO: Replace this with your own data model type
 export interface DataTableItem {
-
+   id:string,
    email: string,
    firstName: string,
    lastName: string,
@@ -17,7 +17,7 @@ export interface DataTableItem {
 // TODO: replace this with real data from your application
 const EXAMPLE_DATA: DataTableItem[] = [
 {
-
+  id:"1",
   email: 'email@gmail.com',
   firstName: 'Nicole',
   lastName: 'Davidson',
@@ -26,7 +26,7 @@ const EXAMPLE_DATA: DataTableItem[] = [
 },
 
 {
-
+  id:"2",
   email: 'anne@gmail.com',
   firstName: 'Abby',
   lastName: 'Smith',

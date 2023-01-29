@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToolbarService } from '../../services/toolbar.service';
+import { tap,BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-side-form',
@@ -8,10 +9,29 @@ import { ToolbarService } from '../../services/toolbar.service';
   styleUrls: ['./side-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SideFormComponent {
+export class SideFormComponent implements OnInit {
+constructor(private drawerService:ToolbarService){}
 
-  constructor(private drawerService:ToolbarService){
 
+
+
+
+disable:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+
+  ngOnInit(){
+    this.userForm.valueChanges
+    .pipe(
+      tap(()=>{
+      console.log(this.userForm.status);
+      if(this.userForm.status === 'VALID'){
+        this.disable.next(false);
+      }
+      
+      })
+
+    ).subscribe();
+    
+    
   }
 
   userForm:FormGroup = new FormGroup({
@@ -19,19 +39,44 @@ export class SideFormComponent {
     lastName: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
     status: new FormControl('', Validators.required),
-    roles: new FormControl('', [Validators.required, Validators.pattern('/^(user|admin)$/')]),
+    roles: new FormControl('', Validators.required),
   })
 
+  
+
   public onCancelClick(){
+    
      this.drawerService.closeDrawer();
+     this.firstName.reset();
+     this.firstName.setErrors(null);
+     this.lastName.reset();
+     this.lastName.setErrors(null);
+     this.email.reset();
+     this.email.setErrors(null);
+     this.status.reset();
+     this.status.setErrors(null);
+     this.roles.reset();
+     this.roles.setErrors(null);
   }
 
   public onConfirmClick(){
     this.drawerService.closeDrawer();
+
+    this.firstName.reset();
+    this.firstName.setErrors(null);
+    this.lastName.reset();
+    this.lastName.setErrors(null);
+    this.email.reset();
+    this.email.setErrors(null);
+    this.status.reset();
+    this.status.setErrors(null);
+    this.roles.reset();
+    this.roles.setErrors(null);
+     
   }
 
 
-
+  
 
 
   get email(): FormControl<string> {
