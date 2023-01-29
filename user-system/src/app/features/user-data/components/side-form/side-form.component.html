@@ -1,0 +1,44 @@
+<form [formGroup]="userForm">
+
+    <mat-form-field>
+        <input formControlName="firstName" matInput placeholder="First Name*">
+        <mat-error>This field is mandatory.</mat-error>
+    </mat-form-field>
+
+
+
+
+    <mat-form-field>
+        <input formControlName="lastName" matInput placeholder="Last Name*">
+        <mat-error>This field is mandatory.</mat-error>
+    </mat-form-field>
+
+
+
+
+    <mat-form-field>
+        <input formControlName="email" matInput placeholder="Email">
+        <mat-error>Invalid email address.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-select formControlName="status" placeholder="User Status*">
+            <mat-option>Active</mat-option>
+            <mat-option>Inactive</mat-option>
+        </mat-select>
+        <mat-error>Please choose one of the options.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <input formControlName="roles" matInput placeholder="Roles*">
+        <mat-error>This field is mandatory.</mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button (click)="onCancelClick()">
+        cancel
+      </button>
+
+      <button mat-raised-button (click)="onConfirmClick()">
+        confirm
+      </button>
+</form>
