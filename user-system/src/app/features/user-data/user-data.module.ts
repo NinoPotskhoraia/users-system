@@ -8,6 +8,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { DrawerContainerComponent } from './components/drawer-container/drawer-container.component';
 import { SideFormComponent } from './components/side-form/side-form.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 
 
@@ -18,6 +19,7 @@ import { SideFormComponent } from './components/side-form/side-form.component';
     DataTableComponent,
     DrawerContainerComponent,
     SideFormComponent,
+    ConfirmDialogComponent,
   ],
   imports: [
     CommonModule,

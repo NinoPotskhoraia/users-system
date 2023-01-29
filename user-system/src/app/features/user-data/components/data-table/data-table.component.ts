@@ -2,6 +2,8 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, ViewChild } from '@a
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
+import { DialogService } from '../../services/dialog.service';
+import { UsersService } from '../../services/users.service';
 import { DataTableDataSource, DataTableItem } from './data-table-datasource';
 
 @Component({
@@ -19,7 +21,7 @@ export class DataTableComponent implements AfterViewInit {
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['email', 'firstName', 'lastName', 'roles', 'status', 'actions'];
 
-  constructor() {
+  constructor(private dialogService: DialogService, private service:UsersService) {
     this.dataSource = new DataTableDataSource();
   }
 
@@ -27,5 +29,16 @@ export class DataTableComponent implements AfterViewInit {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
+  }
+
+
+  onDelete(){
+    this.dialogService.openConfirmDialog('Are you sure you want to delete this record ?')
+    .afterClosed().subscribe(res =>{
+      if(res){
+        this.service.deleteUser();
+        
+      }
+    });
   }
 }

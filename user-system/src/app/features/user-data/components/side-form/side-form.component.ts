@@ -27,7 +27,7 @@ export class SideFormComponent {
   }
 
   public onConfirmClick(){
-    
+    this.drawerService.closeDrawer();
   }
 
 

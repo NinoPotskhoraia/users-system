@@ -16,5 +16,10 @@ export class UsersService {
  });
   }
 
+  deleteUser() {
+    // this.employeeList.remove($key);
+    alert('deleted')
+  }
+
 
 }
