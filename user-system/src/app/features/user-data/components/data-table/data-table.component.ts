@@ -41,4 +41,9 @@ export class DataTableComponent implements AfterViewInit {
       }
     });
   }
+
+  
+public onEdit(id:string){
+    
+}
 }

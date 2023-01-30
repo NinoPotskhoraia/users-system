@@ -1,3 +1,21 @@
-mat-grid-list{
-    min-height:600px;
+form.user-form{
+    margin: 10px;
+
+    .controles-container{
+        display: flex;
+        width: 100%;
+        padding: 5%; 
+        
+       
+    }
+
+    .controles-container > * {
+        width: 100%;
+        }
+        .button-row button{
+            margin: 5px;
+        }
 }
+
+
+

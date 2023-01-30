@@ -1,5 +1,5 @@
 <mat-form-field class="search-form-field">
-    <input matInput placeholder="Search" formControlName="searchKey" autocomplete="off" (keyup)="search()">
+    <input matInput placeholder="Search" formControlName="searchKey" autocomplete="off" floatLabel="never" (keyup)="search()">
     <button mat-button matSuffix mat-icon-button aria-label="Clear"*ngIf="searchKey.value"  (click)="onSearchClear()">
       <mat-icon>close</mat-icon>
     </button>

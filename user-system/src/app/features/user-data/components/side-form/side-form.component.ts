@@ -22,7 +22,6 @@ disable:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
     this.userForm.valueChanges
     .pipe(
       tap(()=>{
-      console.log(this.userForm.status);
       if(this.userForm.status === 'VALID'){
         this.disable.next(false);
       }
@@ -42,24 +41,33 @@ disable:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
     roles: new FormControl('', Validators.required),
   })
 
-  
 
-  public onCancelClick(){
-    
-     this.drawerService.closeDrawer();
-     this.firstName.reset();
-     this.firstName.setErrors(null);
-     this.lastName.reset();
-     this.lastName.setErrors(null);
-     this.email.reset();
-     this.email.setErrors(null);
-     this.status.reset();
-     this.status.setErrors(null);
-     this.roles.reset();
-     this.roles.setErrors(null);
+  public onSubmit(){
+
   }
 
-  public onConfirmClick(){
+  public onEdit(){
+    
+  }
+
+  
+
+  public onCancelClick():void{
+    this.closeAndReset();
+  }
+
+  public onConfirmClick():void{
+  
+     
+  }
+
+  public closeForm():void{
+    this.closeAndReset();
+
+  }
+
+
+  private closeAndReset():void{
     this.drawerService.closeDrawer();
 
     this.firstName.reset();
@@ -72,7 +80,6 @@ disable:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
     this.status.setErrors(null);
     this.roles.reset();
     this.roles.setErrors(null);
-     
   }
 
 
