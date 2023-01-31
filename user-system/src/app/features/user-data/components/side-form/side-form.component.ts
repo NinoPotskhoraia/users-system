@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToolbarService } from '../../services/toolbar.service';
 import { tap,BehaviorSubject } from 'rxjs';
 import { UsersService } from '../../services/users.service';
-import { IUser } from '../../interfaces/user';
+import { IUser, User } from '../../interfaces/user';
 
 @Component({
   selector: 'app-side-form',
@@ -14,7 +14,7 @@ import { IUser } from '../../interfaces/user';
 export class SideFormComponent implements OnInit, OnChanges {
 @Output() saveUser = new EventEmitter();
 @Output() editUser = new EventEmitter();
-@Input() vm:IUser = {} as IUser;
+@Input() vm:User = {} as User;
 
 
 constructor(private drawerService:ToolbarService, private service:UsersService){}
@@ -30,6 +30,8 @@ ngOnChanges(){
     this.roles.setValue(this.vm.roles);
     let userStatus = this.vm.locked;
     this.status.setValue(userStatus? 'active':"inactive");
+    this.id.setValue(this.vm.id)
+    
   }
    
 }
@@ -56,24 +58,31 @@ this.userForm.valueChanges
     email: new FormControl('', [Validators.required, Validators.email]),
     status: new FormControl('', Validators.required),
     roles: new FormControl('', Validators.required),
+    id: new FormControl('')
   })
 
 
   public onSubmit(){
     let userData = this.userForm.getRawValue();
+    console.log(userData); 
     
     let userStatus = userData.status === "active"? true : false;
      
-    let userRoles = userData.roles.split(",");
+    // let userRoles = userData.roles.split(",");
     
 
-    let newUser = {
+    let newUser:User = {
          email:userData.email,
          firstName: userData.firstName,
          lastName: userData.lastName,
          locked: userStatus,
-         roles: userRoles
+         roles: userData.roles
     }
+
+    if(this.id) {
+      newUser.id = this.id.value;
+    }
+
 
     this.saveUser.emit(newUser);
    
@@ -109,6 +118,7 @@ this.userForm.valueChanges
     this.status.setErrors(null);
     this.roles.reset();
     this.roles.setErrors(null);
+    this.id.reset();
   }
 
 
@@ -133,6 +143,10 @@ this.userForm.valueChanges
 
   get roles(): FormControl<string[]> {
     return this.userForm.get('roles') as FormControl<string[]>;
+  }
+
+  get id():FormControl<string | undefined>{
+    return this.userForm.get('id') as FormControl<string | undefined>;
   }
 
 }

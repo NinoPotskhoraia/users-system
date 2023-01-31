@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { IUser, User } from '../interfaces/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
-  newUser:BehaviorSubject<IUser> = new BehaviorSubject({} as IUser);
 
   constructor(private http:HttpClient) { }
 
@@ -22,7 +21,7 @@ export class UsersService {
     return this.http.post(this.url, 
       {
         // "search": "\"\"",
-        // "sortBy": "email",
+        "sortBy": "email",
         "sortDirection": "asc",
         "pageIndex": 0,
         "pageSize": 50,
@@ -45,11 +44,13 @@ export class UsersService {
       {
         "id": userId,
         "includes": [
-          "id"
+          "id",
+          "email",
+          "firstName",
+          "lastName",
+          "roles",
+          "locked"
         ],
-        "excludes": [
-          "id"
-        ]
       },
       { headers: new HttpHeaders({'Authorization': `Bearer ${this.token}`, 'Content-Type': 'application/json',  })
  }, );
@@ -59,8 +60,8 @@ export class UsersService {
   searchUsers(searchValue:string){
     return this.http.post(this.url, 
       {
-        "search": "\`${searchValue}\`",
-        "sortBy": "firstName",
+        "search": searchValue,
+        "sortBy": "email",
         "sortDirection": "asc",
         "pageIndex": 0,
         "pageSize": 20,

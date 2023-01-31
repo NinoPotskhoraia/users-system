@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
-import { MatDrawer, MatSidenav } from '@angular/material/sidenav';
+import { MatDrawer } from '@angular/material/sidenav';
 import { ToolbarService } from '../../services/toolbar.service';
 import { UsersService } from '../../services/users.service';
 import { MatTableDataSource,  } from '@angular/material/table';
@@ -8,7 +8,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { IUser, User } from '../../interfaces/user';
 import { DialogService } from '../../services/dialog.service';
 import { FormControl, FormGroup } from '@angular/forms';
-import { debounceTime, tap, BehaviorSubject } from 'rxjs';
+import { debounceTime, tap } from 'rxjs';
 
 @Component({
   selector: 'app-drawer-container',
@@ -87,8 +87,6 @@ public  addUser(user:IUser) {
       debounceTime(500),
       tap(()=>{
         console.log(this.searchKey.value);
-        
-        
         this.service.searchUsers(this.searchKey.getRawValue()).subscribe(data=>{
           console.log(data);
           console.log(this.searchKey.getRawValue());
@@ -106,14 +104,16 @@ public  addUser(user:IUser) {
      
   }
 
-   public onEdit(row:IUser){
-    this.postToEdit = row;
+   public onEdit( id:string){
+    this.service.getSingleUser(id).subscribe((user:any)=>{
+      let userData = user.data;
+      this.postToEdit = userData;
+      console.log(this.postToEdit);
+      
+      
+    })
     
     this.drawerService.openDrawer();
-    // this.service.getSingleUser(id).subscribe(data=>{
-    //   console.log(data);
-      
-    // })
    
   }
 
