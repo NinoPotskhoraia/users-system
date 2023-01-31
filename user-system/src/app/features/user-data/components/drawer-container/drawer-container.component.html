@@ -2,18 +2,75 @@
 
 <mat-drawer-container>
     <mat-drawer-content>
-        <div class="tools">
-            <app-add-btn></app-add-btn>
-            <app-search></app-search>
-        </div>
 
         <div>
-            <app-data-table></app-data-table>
+            <app-add-btn></app-add-btn>
+          
+            <div class="mat-elevation-z8">
+
+                <form [formGroup]="searchForm">
+                  <mat-form-field class="search-form-field">
+                    <input matInput placeholder="Search" formControlName="searchKey" autocomplete="off" floatLabel="never" (keyup)="search()">
+                  </mat-form-field>
+                </form>
+              
+              
+                <table mat-table class="full-width-table" [dataSource]="dataSource" matSort aria-label="Elements">
+                  <ng-container matColumnDef="email">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+                    <td id="email-input" (click)="onEdit(row)" mat-cell *matCellDef="let row">{{row.email}}</td>
+                  </ng-container>
+              
+              
+                  <ng-container matColumnDef="firstName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>First name</th>
+                    <td mat-cell *matCellDef="let row">{{row.firstName}}</td>
+                  </ng-container>
+              
+                  
+                  <ng-container matColumnDef="lastName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Last name</th>
+                    <td mat-cell *matCellDef="let row">{{row.lastName}}</td>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="roles">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Roles</th>
+                    <td mat-cell *matCellDef="let row">{{row.roles}}</td>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                    <td mat-cell *matCellDef="let row">{{row.status}}</td>
+              
+                  </ng-container>
+              
+                  <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                      <button mat-icon-button color="warn" (click)="onDelete(row.id)"><mat-icon>delete_outline</mat-icon></button>
+                    </mat-cell>
+                  </ng-container>
+              
+                  
+              
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+              
+                <mat-paginator #paginator
+                    [pageIndex]="0"
+                    [pageSize]="10"
+                    [pageSizeOptions]="[5, 10, 20]"
+                    aria-label="Select page">
+                </mat-paginator>
+              </div>
         </div>
     </mat-drawer-content>
 
     <mat-drawer mode="side" position="end">
-       <app-side-form></app-side-form> 
+       <app-side-form (saveUser)="addUser($event)"
+       [vm]="postToEdit"
+       ></app-side-form> 
     </mat-drawer>
   </mat-drawer-container>
   

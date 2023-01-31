@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SearchComponent } from './components/search/search.component';
 import { AddBtnComponent } from './components/add-btn/add-btn.component';
-import { DataTableComponent } from './components/data-table/data-table.component';
 import { SharedModule } from '../../shared/shared.module';
 
 import { RouterModule } from '@angular/router';
@@ -14,9 +12,7 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
 
 @NgModule({
   declarations: [
-    SearchComponent,
     AddBtnComponent,
-    DataTableComponent,
     DrawerContainerComponent,
     SideFormComponent,
     ConfirmDialogComponent,

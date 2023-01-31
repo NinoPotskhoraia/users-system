@@ -1,4 +1,4 @@
-<form [formGroup]="userForm" class="user-form" (submit)="onSubmit()">
+<form [formGroup]="userForm" class="user-form">
 
     <mat-icon id="close-icon" (click)="closeForm()">close</mat-icon>
 
@@ -13,7 +13,7 @@
             <mat-error>This field is mandatory.</mat-error>
         </mat-form-field>
         <mat-form-field>
-            <input  formControlName="email" matInput placeholder="Email*">
+            <input formControlName="email" matInput placeholder="Email*">
             <mat-error>Invalid email address.</mat-error>
         </mat-form-field>
         <mat-form-field>
@@ -34,13 +34,13 @@
             cancel
           </button>
           <button
-          (click)="onConfirmClick()"
+          (click)="onSubmit()"
            [disabled] = "disable | async"
            color="primary"
             type="submit"
            mat-raised-button
             >
-            confirm
+            save
           </button>
     </div>
 </form>

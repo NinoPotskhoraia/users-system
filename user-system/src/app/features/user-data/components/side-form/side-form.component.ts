@@ -1,7 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToolbarService } from '../../services/toolbar.service';
 import { tap,BehaviorSubject } from 'rxjs';
+import { UsersService } from '../../services/users.service';
+import { IUser } from '../../interfaces/user';
 
 @Component({
   selector: 'app-side-form',
@@ -9,17 +11,32 @@ import { tap,BehaviorSubject } from 'rxjs';
   styleUrls: ['./side-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SideFormComponent implements OnInit {
-constructor(private drawerService:ToolbarService){}
+export class SideFormComponent implements OnInit, OnChanges {
+@Output() saveUser = new EventEmitter();
+@Output() editUser = new EventEmitter();
+@Input() vm:IUser = {} as IUser;
 
 
-
-
+constructor(private drawerService:ToolbarService, private service:UsersService){}
 
 disable:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
+ngOnChanges(){
+  
+  if(this.vm){
+    this.email.setValue(this.vm.email);
+    this.firstName.setValue(this.vm.firstName);
+    this.lastName.setValue(this.vm.lastName);
+    this.roles.setValue(this.vm.roles);
+    let userStatus = this.vm.locked;
+    this.status.setValue(userStatus? 'active':"inactive");
+  }
+   
+}
+
   ngOnInit(){
-    this.userForm.valueChanges
+
+this.userForm.valueChanges
     .pipe(
       tap(()=>{
       if(this.userForm.status === 'VALID'){
@@ -43,23 +60,35 @@ disable:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
 
   public onSubmit(){
-
-  }
-
-  public onEdit(){
+    let userData = this.userForm.getRawValue();
     
-  }
+    let userStatus = userData.status === "active"? true : false;
+     
+    let userRoles = userData.roles.split(",");
+    
 
+    let newUser = {
+         email:userData.email,
+         firstName: userData.firstName,
+         lastName: userData.lastName,
+         locked: userStatus,
+         roles: userRoles
+    }
+
+    this.saveUser.emit(newUser);
+   
+    
+
+    this.closeAndReset();
+
+  }
   
 
   public onCancelClick():void{
     this.closeAndReset();
   }
 
-  public onConfirmClick():void{
-  
-     
-  }
+ 
 
   public closeForm():void{
     this.closeAndReset();
@@ -102,8 +131,8 @@ disable:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
     return this.userForm.get('status') as FormControl<string>;
   }
 
-  get roles(): FormControl<string> {
-    return this.userForm.get('roles') as FormControl<string>;
+  get roles(): FormControl<string[]> {
+    return this.userForm.get('roles') as FormControl<string[]>;
   }
 
 }
