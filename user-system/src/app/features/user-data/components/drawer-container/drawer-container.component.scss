@@ -24,9 +24,11 @@
 .full-width-table {
     width: 100%;
   
-   
+    #email-input{
+        cursor: pointer;
+      }
+      mat-icon{
+        cursor: pointer;
+      }
   }
   
-  #email-input{
-    cursor: pointer;
-  }

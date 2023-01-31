@@ -64,27 +64,36 @@ this.userForm.valueChanges
 
   public onSubmit(){
     let userData = this.userForm.getRawValue();
-    console.log(userData); 
-    
     let userStatus = userData.status === "active"? true : false;
-     
-    // let userRoles = userData.roles.split(",");
+    if(userData.id){
+      this.saveUser.emit({
+        email:userData.email,
+        id:userData.id,
+           firstName: userData.firstName,
+           lastName: userData.lastName,
+           locked: userStatus,
+           roles:userData.roles
+      })
+    }else{
+      
+
+      let userRoles = userData.roles.split(",");
+
+      let newUser:IUser = {
+           email:userData.email,
+           firstName: userData.firstName,
+           lastName: userData.lastName,
+           locked: userStatus,
+           roles:userRoles
+      }
+  
+      
+  
+  
+      this.saveUser.emit(newUser);
+    }
     
-
-    let newUser:User = {
-         email:userData.email,
-         firstName: userData.firstName,
-         lastName: userData.lastName,
-         locked: userStatus,
-         roles: userData.roles
-    }
-
-    if(this.id) {
-      newUser.id = this.id.value;
-    }
-
-
-    this.saveUser.emit(newUser);
+  
    
     
 
@@ -145,8 +154,8 @@ this.userForm.valueChanges
     return this.userForm.get('roles') as FormControl<string[]>;
   }
 
-  get id():FormControl<string | undefined>{
-    return this.userForm.get('id') as FormControl<string | undefined>;
+  get id():FormControl<string>{
+    return this.userForm.get('id') as FormControl<string>;
   }
 
 }

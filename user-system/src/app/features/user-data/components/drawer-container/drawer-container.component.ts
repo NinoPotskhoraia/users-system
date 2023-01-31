@@ -3,7 +3,6 @@ import { MatDrawer } from '@angular/material/sidenav';
 import { ToolbarService } from '../../services/toolbar.service';
 import { UsersService } from '../../services/users.service';
 import { MatTableDataSource,  } from '@angular/material/table';
-import {MatSort} from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { IUser, User } from '../../interfaces/user';
 import { DialogService } from '../../services/dialog.service';
@@ -35,8 +34,6 @@ export class DrawerContainerComponent implements OnInit, AfterViewInit {
   postToEdit:any;
  
   
-
-  @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   searchForm:FormGroup = new FormGroup ({
@@ -48,17 +45,7 @@ export class DrawerContainerComponent implements OnInit, AfterViewInit {
 
 }
 
-public  addUser(user:IUser) {
-  this.service.addUser(user).subscribe(data=>{
-    console.log(data);
 
-    setTimeout(() => {
-      this.setUsers();
-    }, 400);
-    
-  })
-
-}
 
 
   setUsers(){
@@ -76,9 +63,91 @@ public  addUser(user:IUser) {
       
       this.dataSource = new MatTableDataSource(userData);
       this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
     })
    }
+
+   public sortEmail(){
+    this.service.sortByEmail().subscribe(data=>{
+      this.posts = data;
+      let userData = this.posts.data.entities;
+      userData.forEach((user: { locked: any, status: any; })=>{
+        if(user.locked === true){
+          user.status = 'Active'
+        }else{
+          user.status = 'Inactive'
+        }
+      })
+      
+      this.dataSource = new MatTableDataSource(userData);
+      this.dataSource.paginator = this.paginator;
+    })
+   }
+
+   public sortFirstName(){
+       this.service.sortByFirstName().subscribe(data=>{
+        this.posts = data;
+        let userData = this.posts.data.entities;
+        userData.forEach((user: { locked: any, status: any; })=>{
+          if(user.locked === true){
+            user.status = 'Active'
+          }else{
+            user.status = 'Inactive'
+          }
+        })
+        
+        this.dataSource = new MatTableDataSource(userData);
+        this.dataSource.paginator = this.paginator;
+      })
+
+       
+   }
+
+   public sortLastName(){
+    this.service.sortByLastName().subscribe(data=>{
+      this.posts = data;
+        let userData = this.posts.data.entities;
+        userData.forEach((user: { locked: any, status: any; })=>{
+          if(user.locked === true){
+            user.status = 'Active'
+          }else{
+            user.status = 'Inactive'
+          }
+        })
+        
+        this.dataSource = new MatTableDataSource(userData);
+        this.dataSource.paginator = this.paginator;
+    })
+   }
+
+   public sortStatus(){
+    this.service.sortByStatus().subscribe(data=>{
+      this.posts = data;
+        let userData = this.posts.data.entities;
+        userData.forEach((user: { locked: any, status: any; })=>{
+          if(user.locked === true){
+            user.status = 'Active'
+          }else{
+            user.status = 'Inactive'
+          }
+        })
+        
+        this.dataSource = new MatTableDataSource(userData);
+        this.dataSource.paginator = this.paginator;
+    })
+      
+   }
+
+   public  addUser(user:IUser) {
+    this.service.addUser(user).subscribe(data=>{
+      console.log(data);
+  
+      setTimeout(() => {
+        this.setUsers();
+      }, 400);
+      
+    })
+  
+  }
 
   
   public search(){
@@ -94,7 +163,6 @@ public  addUser(user:IUser) {
           this.posts = data;
           this.dataSource = new MatTableDataSource(this.posts.data.entities);
       this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
         })
       })
   
@@ -135,6 +203,9 @@ public  addUser(user:IUser) {
   
 
   }
+
+
+  
   get searchKey(): FormControl<string> {
     return this.searchForm.get('searchKey') as FormControl<string>;
   }

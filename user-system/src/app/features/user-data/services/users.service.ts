@@ -21,6 +21,27 @@ export class UsersService {
     return this.http.post(this.url, 
       {
         // "search": "\"\"",
+        // "sortBy": "email",
+        "sortDirection": "asc",
+        "pageIndex": 0,
+        "pageSize": 50,
+        "includes": [
+          "id",
+          "email",
+          "firstName",
+          "lastName",
+          "roles",
+          "locked"
+        ]
+      },
+      { headers: new HttpHeaders({'Authorization': `Bearer ${this.token}`, 'Content-Type': 'application/json',  })
+ }, );
+  }
+
+  sortByEmail(){
+    return this.http.post(this.url, 
+      {
+        // "search": "\"\"",
         "sortBy": "email",
         "sortDirection": "asc",
         "pageIndex": 0,
@@ -36,6 +57,70 @@ export class UsersService {
       },
       { headers: new HttpHeaders({'Authorization': `Bearer ${this.token}`, 'Content-Type': 'application/json',  })
  }, );
+  }
+
+  sortByFirstName(){
+    return this.http.post(this.url, 
+      {
+        // "search": "\"\"",
+        "sortBy": "firstName",
+        "sortDirection": "asc",
+        "pageIndex": 0,
+        "pageSize": 50,
+        "includes": [
+          "id",
+          "email",
+          "firstName",
+          "lastName",
+          "roles",
+          "locked"
+        ]
+      },
+      { headers: new HttpHeaders({'Authorization': `Bearer ${this.token}`, 'Content-Type': 'application/json',  })
+ }, );
+  }
+
+  sortByLastName(){
+    return this.http.post(this.url, 
+      {
+        // "search": "\"\"",
+        "sortBy": "lastName",
+        "sortDirection": "asc",
+        "pageIndex": 0,
+        "pageSize": 50,
+        "includes": [
+          "id",
+          "email",
+          "firstName",
+          "lastName",
+          "roles",
+          "locked"
+        ]
+      },
+      { headers: new HttpHeaders({'Authorization': `Bearer ${this.token}`, 'Content-Type': 'application/json',  })
+ }, );
+  }
+
+  sortByStatus(){
+    return this.http.post(this.url, 
+      {
+        // "search": "\"\"",
+        "sortBy": "locked",
+        "sortDirection": "asc",
+        "pageIndex": 0,
+        "pageSize": 50,
+        "includes": [
+          "id",
+          "email",
+          "firstName",
+          "lastName",
+          "roles",
+          "locked"
+        ]
+      },
+      { headers: new HttpHeaders({'Authorization': `Bearer ${this.token}`, 'Content-Type': 'application/json',  })
+ }, );
+
   }
 
 
