@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { IUser, User } from '../interfaces/user';
+import { IUser } from '../interfaces/user';
 
 @Injectable({
   providedIn: 'root'
@@ -20,11 +19,9 @@ export class UsersService {
   getUsers(){
     return this.http.post(this.url, 
       {
-        // "search": "\"\"",
-        // "sortBy": "email",
         "sortDirection": "asc",
         "pageIndex": 0,
-        "pageSize": 50,
+        "pageSize": 20,
         "includes": [
           "id",
           "email",
@@ -41,11 +38,10 @@ export class UsersService {
   sortByEmail(){
     return this.http.post(this.url, 
       {
-        // "search": "\"\"",
         "sortBy": "email",
         "sortDirection": "asc",
         "pageIndex": 0,
-        "pageSize": 50,
+        "pageSize": 20,
         "includes": [
           "id",
           "email",
@@ -62,11 +58,10 @@ export class UsersService {
   sortByFirstName(){
     return this.http.post(this.url, 
       {
-        // "search": "\"\"",
         "sortBy": "firstName",
         "sortDirection": "asc",
         "pageIndex": 0,
-        "pageSize": 50,
+        "pageSize": 20,
         "includes": [
           "id",
           "email",
@@ -83,11 +78,10 @@ export class UsersService {
   sortByLastName(){
     return this.http.post(this.url, 
       {
-        // "search": "\"\"",
         "sortBy": "lastName",
         "sortDirection": "asc",
         "pageIndex": 0,
-        "pageSize": 50,
+        "pageSize": 20,
         "includes": [
           "id",
           "email",
@@ -104,11 +98,10 @@ export class UsersService {
   sortByStatus(){
     return this.http.post(this.url, 
       {
-        // "search": "\"\"",
         "sortBy": "locked",
         "sortDirection": "asc",
         "pageIndex": 0,
-        "pageSize": 50,
+        "pageSize": 20,
         "includes": [
           "id",
           "email",
@@ -183,11 +176,6 @@ export class UsersService {
   }
 
 
-
-
-  updateUser(userId:string){
-
-  }
 
 
 }

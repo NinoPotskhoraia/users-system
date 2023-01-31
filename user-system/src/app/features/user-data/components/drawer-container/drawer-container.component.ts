@@ -30,8 +30,8 @@ export class DrawerContainerComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = ['email', 'firstName', 'lastName', 'roles', 'status', 'actions'];
   dataSource!: MatTableDataSource<User>;
-  posts: any;
-  postToEdit:any;
+  posts:any;
+  postToEdit!:User;
  
   
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -39,6 +39,7 @@ export class DrawerContainerComponent implements OnInit, AfterViewInit {
   searchForm:FormGroup = new FormGroup ({
     searchKey: new FormControl('')
   })
+
 
   ngAfterViewInit():void {
     this.drawerService.setDrawer(this.drawer);
@@ -162,7 +163,7 @@ export class DrawerContainerComponent implements OnInit, AfterViewInit {
           
           this.posts = data;
           this.dataSource = new MatTableDataSource(this.posts.data.entities);
-      this.dataSource.paginator = this.paginator;
+          this.dataSource.paginator = this.paginator;
         })
       })
   
@@ -177,8 +178,6 @@ export class DrawerContainerComponent implements OnInit, AfterViewInit {
       let userData = user.data;
       this.postToEdit = userData;
       console.log(this.postToEdit);
-      
-      
     })
     
     this.drawerService.openDrawer();

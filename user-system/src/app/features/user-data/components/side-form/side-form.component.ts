@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
-import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToolbarService } from '../../services/toolbar.service';
 import { tap,BehaviorSubject } from 'rxjs';
 import { UsersService } from '../../services/users.service';
@@ -86,18 +86,10 @@ this.userForm.valueChanges
            locked: userStatus,
            roles:userRoles
       }
-  
-      
-  
-  
-      this.saveUser.emit(newUser);
+        this.saveUser.emit(newUser);
     }
     
-  
-   
-    
-
-    this.closeAndReset();
+  this.closeAndReset();
 
   }
   
