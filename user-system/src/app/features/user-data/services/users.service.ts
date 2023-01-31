@@ -21,7 +21,7 @@ export class UsersService {
       {
         "sortDirection": "asc",
         "pageIndex": 0,
-        "pageSize": 20,
+        "pageSize": 50,
         "includes": [
           "id",
           "email",
@@ -41,7 +41,7 @@ export class UsersService {
         "sortBy": "email",
         "sortDirection": "asc",
         "pageIndex": 0,
-        "pageSize": 20,
+        "pageSize": 50,
         "includes": [
           "id",
           "email",
@@ -61,7 +61,7 @@ export class UsersService {
         "sortBy": "firstName",
         "sortDirection": "asc",
         "pageIndex": 0,
-        "pageSize": 20,
+        "pageSize": 50,
         "includes": [
           "id",
           "email",
@@ -81,7 +81,7 @@ export class UsersService {
         "sortBy": "lastName",
         "sortDirection": "asc",
         "pageIndex": 0,
-        "pageSize": 20,
+        "pageSize": 50,
         "includes": [
           "id",
           "email",
@@ -101,7 +101,7 @@ export class UsersService {
         "sortBy": "locked",
         "sortDirection": "asc",
         "pageIndex": 0,
-        "pageSize": 20,
+        "pageSize": 50,
         "includes": [
           "id",
           "email",
@@ -142,7 +142,7 @@ export class UsersService {
         "sortBy": "email",
         "sortDirection": "asc",
         "pageIndex": 0,
-        "pageSize": 20,
+        "pageSize": 50,
         "includes": [
           "id",
           "email",
