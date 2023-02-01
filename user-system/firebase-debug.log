@@ -1,0 +1,48 @@
+[debug] [2023-02-01T10:53:53.723Z] ----------------------------------------------------------------------
+[debug] [2023-02-01T10:53:53.725Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\otiko\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init hosting
+[debug] [2023-02-01T10:53:53.725Z] CLI Version:   11.21.0
+[debug] [2023-02-01T10:53:53.726Z] Platform:      win32
+[debug] [2023-02-01T10:53:53.726Z] Node Version:  v18.13.0
+[debug] [2023-02-01T10:53:53.727Z] Time:          Wed Feb 01 2023 14:53:53 GMT+0400 (საქართველოს სტანდარტული დრო)
+[debug] [2023-02-01T10:53:53.727Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-02-01T10:53:53.799Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-02-01T10:53:53.800Z] > authorizing via signed-in user (ninopotskhoraia17@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\otiko\OneDrive\Desktop\users\users-system\user-system
+
+Before we get started, keep in mind:
+
+  * You are initializing within an existing Firebase project directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2023-02-01T10:53:58.500Z] Using project from CLI flag: user-management-system-e7a8a
+[debug] [2023-02-01T10:53:58.503Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/user-management-system-e7a8a [none]
+[debug] [2023-02-01T10:53:59.065Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/user-management-system-e7a8a 200
+[debug] [2023-02-01T10:53:59.065Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/user-management-system-e7a8a {"projectId":"user-management-system-e7a8a","projectNumber":"603045348767","displayName":"user management system","name":"projects/user-management-system-e7a8a","resources":{"hostingSite":"user-management-system-e7a8a"},"state":"ACTIVE","etag":"1_770a630d-7b61-41a2-a615-bb88569127ca"}
+[info] i  Using project user-management-system-e7a8a (user management system) 
+[info] 
+=== Hosting Setup
+[debug] [2023-02-01T10:54:39.790Z] Error: Command failed: npx --yes -p @angular/cli@latest ng new hosting --skip-git
+    at checkExecSyncError (node:child_process:885:11)
+    at execSync (node:child_process:957:15)
+    at Object.init (C:\Users\otiko\AppData\Roaming\npm\node_modules\firebase-tools\lib\frameworks\angular\index.js:27:34)
+    at doSetup (C:\Users\otiko\AppData\Roaming\npm\node_modules\firebase-tools\lib\init\features\hosting\index.js:86:76)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async init (C:\Users\otiko\AppData\Roaming\npm\node_modules\firebase-tools\lib\init\index.js:36:9)
+[error] 
+[error] Error: An unexpected error has occurred.

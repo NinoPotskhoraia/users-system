@@ -2,6 +2,20 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
+    ::ng-deep .mat-form-field {
+        .mat-form-field-label {
+            color: #ff884d;
+        }
+        .mat-form-field-ripple {
+            background-color: #ff884d;
+        }
+        .mat-form-field-required-marker {
+            color: #ff884d;
+        }
+        .mat-input-element {
+            color: #ff884d;
+        }
+    }
 button{
     cursor: pointer;
 } }

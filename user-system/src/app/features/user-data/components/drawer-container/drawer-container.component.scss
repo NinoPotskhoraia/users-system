@@ -1,13 +1,40 @@
+.tools{
+    width:50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 
+    .search-form-field{
+        height:70px;
+        width:400px;
+        margin-top: 20px;
+    }
+}
 
 .full-width-table {
     width: 100%;
+    background-color:rgb(247, 250, 253);
+    margin-top: 20px;
+    .mdc-data-table__row:hover{
+          background-color:rgb(147, 194, 235);
+    }
   
     #email-input{
         cursor: pointer;
       }
-      mat-icon{
+      .mdc-data-table__header-row{
+          background-color:rgb(219, 219, 228);
+      
+      .mdc-data-table__header-cell  mat-icon{
         cursor: pointer;
+        font-size: 20px;
+        transform: translateY(6px);
       }
+    }
+
+     
+      .mdc-data-table__cell, .mdc-data-table__header-cell {
+         border-bottom: none;
+    }
   }
   
