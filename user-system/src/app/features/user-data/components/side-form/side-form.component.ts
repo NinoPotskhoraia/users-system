@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, OnDestroy, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToolbarService } from '../../services/toolbar.service';
-import { tap,BehaviorSubject } from 'rxjs';
+import { tap,BehaviorSubject, Subscription, catchError, of } from 'rxjs';
 import { UsersService } from '../../services/users.service';
 import { IUser, User } from '../../interfaces/user';
 
@@ -11,7 +11,7 @@ import { IUser, User } from '../../interfaces/user';
   styleUrls: ['./side-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SideFormComponent implements OnInit, OnChanges {
+export class SideFormComponent implements OnInit, OnChanges, OnDestroy  {
 @Output() saveUser = new EventEmitter();
 @Output() editUser = new EventEmitter();
 @Input() vm:User = {} as User;
@@ -20,6 +20,8 @@ export class SideFormComponent implements OnInit, OnChanges {
 constructor(private drawerService:ToolbarService, private service:UsersService){}
 
 disable:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+
+subscriptions: Subscription[] = [];
 
 ngOnChanges(){
   
@@ -37,17 +39,24 @@ ngOnChanges(){
 }
 
   ngOnInit(){
-
-this.userForm.valueChanges
+    this.subscriptions.push(
+      this.userForm.valueChanges
     .pipe(
       tap(()=>{
       if(this.userForm.status === 'VALID'){
         this.disable.next(false);
       }
       
+      }),
+      catchError((e)=>{
+        console.log(e.message);
+        return of([]);
       })
 
-    ).subscribe();
+    ).subscribe()
+    )
+
+
     
     
   }
@@ -120,6 +129,10 @@ this.userForm.valueChanges
     this.roles.reset();
     this.roles.setErrors(null);
     this.id.reset();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((element) => element.unsubscribe());
   }
 
 

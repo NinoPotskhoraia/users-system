@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { ToolbarService } from '../../services/toolbar.service';
 import { UsersService } from '../../services/users.service';
@@ -7,7 +7,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { IUser, User } from '../../interfaces/user';
 import { DialogService } from '../../services/dialog.service';
 import { FormControl, FormGroup } from '@angular/forms';
-import { debounceTime, tap } from 'rxjs';
+import { catchError, debounceTime, of, Subscription, tap } from 'rxjs';
 
 @Component({
   selector: 'app-drawer-container',
@@ -15,7 +15,7 @@ import { debounceTime, tap } from 'rxjs';
   styleUrls: ['./drawer-container.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DrawerContainerComponent implements OnInit, AfterViewInit {
+export class DrawerContainerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(private service: UsersService, private dialogService:DialogService, private drawerService:ToolbarService) {
    
@@ -32,6 +32,8 @@ export class DrawerContainerComponent implements OnInit, AfterViewInit {
   dataSource!: MatTableDataSource<User>;
   posts:any;
   postToEdit!:User;
+
+  subscriptions: Subscription[] = [];
  
   
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -50,6 +52,7 @@ export class DrawerContainerComponent implements OnInit, AfterViewInit {
 
 
   setUsers(){
+    this.subscriptions.push(
     this.service.getUsers().subscribe(data=>{
       
       this.posts = data;
@@ -64,10 +67,11 @@ export class DrawerContainerComponent implements OnInit, AfterViewInit {
       
       this.dataSource = new MatTableDataSource(userData);
       this.dataSource.paginator = this.paginator;
-    })
+    }))
    }
 
    public sortEmail(){
+    this.subscriptions.push(
     this.service.sortByEmail().subscribe(data=>{
       this.posts = data;
       let userData = this.posts.data.entities;
@@ -81,10 +85,11 @@ export class DrawerContainerComponent implements OnInit, AfterViewInit {
       
       this.dataSource = new MatTableDataSource(userData);
       this.dataSource.paginator = this.paginator;
-    })
+    }))
    }
 
    public sortFirstName(){
+    this.subscriptions.push(
        this.service.sortByFirstName().subscribe(data=>{
         this.posts = data;
         let userData = this.posts.data.entities;
@@ -98,12 +103,13 @@ export class DrawerContainerComponent implements OnInit, AfterViewInit {
         
         this.dataSource = new MatTableDataSource(userData);
         this.dataSource.paginator = this.paginator;
-      })
+      }))
 
        
    }
 
    public sortLastName(){
+    this.subscriptions.push(
     this.service.sortByLastName().subscribe(data=>{
       this.posts = data;
         let userData = this.posts.data.entities;
@@ -117,10 +123,11 @@ export class DrawerContainerComponent implements OnInit, AfterViewInit {
         
         this.dataSource = new MatTableDataSource(userData);
         this.dataSource.paginator = this.paginator;
-    })
+    }))
    }
 
    public sortStatus(){
+    this.subscriptions.push(
     this.service.sortByStatus().subscribe(data=>{
       this.posts = data;
         let userData = this.posts.data.entities;
@@ -134,11 +141,12 @@ export class DrawerContainerComponent implements OnInit, AfterViewInit {
         
         this.dataSource = new MatTableDataSource(userData);
         this.dataSource.paginator = this.paginator;
-    })
+    }))
       
    }
 
    public  addUser(user:IUser) {
+    this.subscriptions.push(
     this.service.addUser(user).subscribe(data=>{
       console.log(data);
   
@@ -146,12 +154,13 @@ export class DrawerContainerComponent implements OnInit, AfterViewInit {
         this.setUsers();
       }, 400);
       
-    })
+    }))
   
   }
 
   
   public search(){
+    this.subscriptions.push(
     this.searchKey.valueChanges
     .pipe(
       debounceTime(500),
@@ -165,20 +174,25 @@ export class DrawerContainerComponent implements OnInit, AfterViewInit {
           this.dataSource = new MatTableDataSource(this.posts.data.entities);
           this.dataSource.paginator = this.paginator;
         })
+      }),
+      catchError((e)=>{
+        console.log(e.message);
+        return of([]);
       })
   
-    ).subscribe();
+    ).subscribe());
   
     this.searchKey.updateValueAndValidity();
      
   }
 
    public onEdit( id:string){
+    this.subscriptions.push(
     this.service.getSingleUser(id).subscribe((user:any)=>{
       let userData = user.data;
       this.postToEdit = userData;
       console.log(this.postToEdit);
-    })
+    }))
     
     this.drawerService.openDrawer();
    
@@ -201,6 +215,10 @@ export class DrawerContainerComponent implements OnInit, AfterViewInit {
     });
   
 
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((element) => element.unsubscribe());
   }
 
 

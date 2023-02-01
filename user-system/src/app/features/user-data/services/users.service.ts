@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IUser } from '../interfaces/user';
+import { catchError, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +33,12 @@ export class UsersService {
         ]
       },
       { headers: new HttpHeaders({'Authorization': `Bearer ${this.token}`, 'Content-Type': 'application/json',  })
- }, );
+ }, ).pipe(
+  catchError((e) => {
+    console.log(e.message);
+    return of([]);
+  })
+);
   }
 
   sortByEmail(){
@@ -52,7 +58,12 @@ export class UsersService {
         ]
       },
       { headers: new HttpHeaders({'Authorization': `Bearer ${this.token}`, 'Content-Type': 'application/json',  })
- }, );
+ }, ).pipe(
+  catchError((e) => {
+    console.log(e.message);
+    return of([]);
+  })
+);
   }
 
   sortByFirstName(){
@@ -72,7 +83,12 @@ export class UsersService {
         ]
       },
       { headers: new HttpHeaders({'Authorization': `Bearer ${this.token}`, 'Content-Type': 'application/json',  })
- }, );
+ }, ).pipe(
+  catchError((e) => {
+    console.log(e.message);
+    return of([]);
+  })
+);
   }
 
   sortByLastName(){
@@ -92,7 +108,12 @@ export class UsersService {
         ]
       },
       { headers: new HttpHeaders({'Authorization': `Bearer ${this.token}`, 'Content-Type': 'application/json',  })
- }, );
+ }, ).pipe(
+  catchError((e) => {
+    console.log(e.message);
+    return of([]);
+  })
+);
   }
 
   sortByStatus(){
@@ -112,7 +133,12 @@ export class UsersService {
         ]
       },
       { headers: new HttpHeaders({'Authorization': `Bearer ${this.token}`, 'Content-Type': 'application/json',  })
- }, );
+ }, ).pipe(
+  catchError((e) => {
+    console.log(e.message);
+    return of([]);
+  })
+);
 
   }
 
@@ -131,7 +157,12 @@ export class UsersService {
         ],
       },
       { headers: new HttpHeaders({'Authorization': `Bearer ${this.token}`, 'Content-Type': 'application/json',  })
- }, );
+ }, ).pipe(
+  catchError((e) => {
+    console.log(e.message);
+    return of([]);
+  })
+);
   }
 
 
@@ -153,7 +184,12 @@ export class UsersService {
         ]
       },
       { headers: new HttpHeaders({'Authorization': `Bearer ${this.token}`, 'Content-Type': 'application/json',  })
- }, );
+ }, ).pipe(
+  catchError((e) => {
+    console.log(e.message);
+    return of([]);
+  })
+);
   }
 
 
@@ -162,7 +198,12 @@ export class UsersService {
       return this.http.post(this.addUrl, 
         user,
         { headers: new HttpHeaders({'Authorization': `Bearer ${this.token}`, 'Content-Type': 'application/json',  })
-   }, );
+   }, ).pipe(
+    catchError((e) => {
+      console.log(e.message);
+      return of([]);
+    })
+  );
   }
 
 
@@ -172,7 +213,12 @@ export class UsersService {
         "id": userId
       },
       { headers: new HttpHeaders({'Authorization': `Bearer ${this.token}`, 'Content-Type': 'application/json',  })
- }, );
+ }, ).pipe(
+  catchError((e) => {
+    console.log(e.message);
+    return of([]);
+  })
+);
   }
 
 
