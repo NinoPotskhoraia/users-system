@@ -1,32 +1,18 @@
-form.user-form{
-    margin: 10px;
-
-    .controles-container{
-        display: flex;
-        width: 100%;
-        padding: 5%; 
-
-        .mat-form-field input {
-            height: 20px;
-            transition: height ease-in-out 400ms;
-        }
-        
-        .mat-form-field input:focus {
-            background-color: red !important;
-            height: 50px;
-            transition: height ease-in-out 400ms;
-        }
-        
-       
+.user-form{
+    padding:10px 20px;
+    mat-icon{
+        cursor: pointer;
     }
+  mat-form-field{
+    margin:0 50px;
+    width:200px;
+    height:90px;
+    display:block;
+  }
 
-    .controles-container > * {
-        width: 100%;
-        }
-        .button-row button{
-            margin: 5px;
-        }
+  .button-row{
+    width:100%;
+    display: flex;
+    justify-content: space-between;
+  }
 }
-
-
-

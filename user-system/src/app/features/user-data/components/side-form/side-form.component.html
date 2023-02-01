@@ -6,26 +6,26 @@
     <div class="controls-container">
             <input formControlName="id" type="hidden">
 
-        <mat-form-field>
+        <mat-form-field appearance="outline">
             <input formControlName="firstName" matInput placeholder="First Name*">
             <mat-error>This field is mandatory.</mat-error>
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field appearance="outline">
             <input formControlName="lastName" matInput placeholder="Last Name*">
             <mat-error>This field is mandatory.</mat-error>
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field appearance="outline">
             <input formControlName="email" matInput placeholder="Email*">
             <mat-error>Invalid email address.</mat-error>
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field appearance="outline">
             <mat-select formControlName="status" placeholder="User Status*">
                 <mat-option value="active">Active</mat-option>
                 <mat-option value="inactive">Inactive</mat-option>
             </mat-select>
             <mat-error>Please choose one of the options.</mat-error>
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field appearance="outline">
             <input formControlName="roles" matInput placeholder="Roles*">
             <mat-error>This field is mandatory.</mat-error>
         </mat-form-field>
