@@ -8,6 +8,7 @@ import { IUser, User } from '../../interfaces/user';
 import { DialogService } from '../../services/dialog.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { catchError, debounceTime, of, Subscription, tap } from 'rxjs';
+import { SortingService } from '../../services/sorting.service';
 
 @Component({
   selector: 'app-drawer-container',
@@ -17,7 +18,7 @@ import { catchError, debounceTime, of, Subscription, tap } from 'rxjs';
 })
 export class DrawerContainerComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  constructor(private service: UsersService, private dialogService:DialogService, private drawerService:ToolbarService) {
+  constructor(private service: UsersService, private dialogService:DialogService, private drawerService:ToolbarService, private sorting:SortingService) {
    
   }
 
@@ -72,7 +73,7 @@ export class DrawerContainerComponent implements OnInit, AfterViewInit, OnDestro
 
    public sortEmail(){
     this.subscriptions.push(
-    this.service.sortByEmail().subscribe(data=>{
+    this.sorting.sortByEmail().subscribe(data=>{
       this.posts = data;
       let userData = this.posts.data.entities;
       userData.forEach((user: { locked: any, status: any; })=>{
@@ -90,7 +91,7 @@ export class DrawerContainerComponent implements OnInit, AfterViewInit, OnDestro
 
    public sortFirstName(){
     this.subscriptions.push(
-       this.service.sortByFirstName().subscribe(data=>{
+       this.sorting.sortByFirstName().subscribe(data=>{
         this.posts = data;
         let userData = this.posts.data.entities;
         userData.forEach((user: { locked: any, status: any; })=>{
@@ -110,7 +111,7 @@ export class DrawerContainerComponent implements OnInit, AfterViewInit, OnDestro
 
    public sortLastName(){
     this.subscriptions.push(
-    this.service.sortByLastName().subscribe(data=>{
+    this.sorting.sortByLastName().subscribe(data=>{
       this.posts = data;
         let userData = this.posts.data.entities;
         userData.forEach((user: { locked: any, status: any; })=>{
@@ -128,7 +129,7 @@ export class DrawerContainerComponent implements OnInit, AfterViewInit, OnDestro
 
    public sortStatus(){
     this.subscriptions.push(
-    this.service.sortByStatus().subscribe(data=>{
+    this.sorting.sortByStatus().subscribe(data=>{
       this.posts = data;
         let userData = this.posts.data.entities;
         userData.forEach((user: { locked: any, status: any; })=>{
@@ -171,8 +172,17 @@ export class DrawerContainerComponent implements OnInit, AfterViewInit, OnDestro
           console.log(this.searchKey.getRawValue());
           
           this.posts = data;
+          let userData = this.posts.data.entities;
+          userData.forEach((user: { locked: any, status: any; })=>{
+            if(user.locked === true){
+              user.status = 'Active'
+            }else{
+              user.status = 'Inactive'
+            }
+          })
           this.dataSource = new MatTableDataSource(this.posts.data.entities);
           this.dataSource.paginator = this.paginator;
+          
         })
       }),
       catchError((e)=>{
