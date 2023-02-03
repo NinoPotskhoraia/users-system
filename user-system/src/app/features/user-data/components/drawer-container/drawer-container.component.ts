@@ -9,6 +9,7 @@ import { DialogService } from '../../services/dialog.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { catchError, debounceTime, of, Subscription, tap } from 'rxjs';
 import { SortingService } from '../../services/sorting.service';
+import { LoaderService } from 'src/app/core/loader/services/loader.service';
 
 @Component({
   selector: 'app-drawer-container',
@@ -18,7 +19,7 @@ import { SortingService } from '../../services/sorting.service';
 })
 export class DrawerContainerComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  constructor(private service: UsersService, private dialogService:DialogService, private drawerService:ToolbarService, private sorting:SortingService) {
+  constructor(private service: UsersService, private dialogService:DialogService, private drawerService:ToolbarService, private sorting:SortingService, public loaderService: LoaderService) {
    
   }
 

@@ -10,9 +10,11 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
-
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { InterceptorService } from '../core/loader/interceptors/interceptor.service';
 
 @NgModule({
   declarations: [],
@@ -28,6 +30,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatInputModule,
     MatButtonModule,
     MatDialogModule,
+    MatProgressSpinnerModule,
     ReactiveFormsModule,
     HttpClientModule
   ],
@@ -42,8 +45,10 @@ import { HttpClientModule } from '@angular/common/http';
     MatInputModule,
     MatButtonModule,
     MatDialogModule,
+    MatProgressSpinnerModule,
     ReactiveFormsModule,
     HttpClientModule
-  ]
+  ],
+  providers: [ { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }],
 })
 export class SharedModule { }
